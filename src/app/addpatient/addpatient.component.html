@@ -1,0 +1,72 @@
+<h2>Add Patient</h2>
+
+<div class="container">
+  <div class="form-group">
+    <br>
+    <label>First Name</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.FirstName">
+    <br>
+    <label>Last Name</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.LastName">
+    <br>
+    <label>Date of Birth</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.DOB">
+    <br>
+    <label>Contact</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.Contact">
+    @if(patient.Contact && (!patient.Contact.match('^[0-9]+$') || patient.Contact.length != 10))
+    {
+      <div class="text-danger">Invalid Phone Number</div>
+    }
+    <br>
+    <label>Email Address</label>
+    <input type="text" class="form-control" id="emailinput" [(ngModel)]="patient.Email">
+    @if (patient.Email && !patient.Email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
+    { 
+      <div class="text-danger">Invalid email address</div>
+    }
+    <br>
+    <label>Home Address</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.Address">
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Gender</label>
+        <select class="form-control" [(ngModel)]="patient.Gender">
+            @for (gen of gender; track $index) {
+              <option value="{{gen}}">{{gen}}</option>
+            }
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Blood Type</label>
+        <select class="form-control" [(ngModel)]="patient.BloodType">
+            @for (bt of bloodtype; track $index) {
+              <option value="{{bt}}">{{bt}}</option>
+            }
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Insurance</label>
+        <select class="form-control" [(ngModel)]="patient.Insurance">
+            @for (ins of insurance; track $index) {
+              <option value="{{ins}}">{{ins}}</option>
+            }
+        </select>
+      </div>
+    </div>
+    <br>
+    <label>Emergency Contact</label>
+    <input type="text" class="form-control" [(ngModel)]="patient.EmergencyContact">
+    @if(patient.EmergencyContact && (!patient.EmergencyContact.match('^[0-9]+$') || patient.EmergencyContact.length != 10))
+    {
+      <div class="text-danger">Invalid Phone Number</div>
+    }
+  </div>
+  <br>
+  <div class="btn-group-lg">
+    <button class="btn btn-warning" style="font-weight: 600;" (click)="clear()">Clear All</button>
+    <button class="btn btn-success" style="font-weight: 600;" (click)="save()">Save</button>
+  </div>
+  <br/>
+</div>

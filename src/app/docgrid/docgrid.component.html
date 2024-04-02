@@ -1,0 +1,45 @@
+<div class="form-group" style="margin-left: 20px;">
+    <label for="doctorId">Search by Doctor ID:</label>
+    <input type="text" class="form-control" id="patientId" [(ngModel)]="searchDoctorId" style = "width: 25%;">
+
+    <button id = "searchbutton" class="btn btn-primary" (click)="search();ToggleRestore()">Search</button>
+    @if(this.CanRestore)
+    {    <button class="btn btn-success" (click)="RestoreData();ToggleRestore()">Restore</button>  }
+  </div>
+
+@if (data.length == 0) {
+    <h3 class="m-2">No Data To Show</h3>
+  }
+   
+  @else {
+    <br>
+  <table class="table table-bordered table-striped">
+   
+    <thead>
+      <tr>   
+          @for (col of columns; track $index) 
+          {
+            <th>{{col}}</th>
+          }
+   
+          <th><button class="btn btn-primary" (click)="ToggleDelete()">Enable Delete</button></th>
+       </tr>
+    </thead>
+
+    <tbody>
+      @for (ptn of data; track $index) {
+        <tr>   
+          @for (col of columns; track $index) {
+            <td>{{ptn[col]}}</td>
+          }
+          @if (CanDelete) {
+            <td>
+              <button class="btn btn-danger" (click)="deleteRow(ptn)">Delete</button>
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+    
+  </table>
+  } 

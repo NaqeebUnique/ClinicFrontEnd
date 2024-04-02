@@ -1,0 +1,13 @@
+<h1>Doctors Data</h1>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/adminhomepage">Home</button>
+
+<button class="btn btn-primary" style="margin-left: 20px;" routerLink="/adddoctor">Add Doctor</button>
+
+<br><br>
+
+<app-docgrid
+[data]= "doctors"
+[columns]="columns"
+(rowDeleted)="onRowDelete($event)">
+</app-docgrid>

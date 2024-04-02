@@ -1,0 +1,14 @@
+<h1>Patients Data</h1>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/adminhomepage">Home</button>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addpatient">Add Patient</button>
+
+
+<br><br>
+
+<app-datagrid
+[data]= "patients"
+[columns]="columns"
+(rowDeleted)="onRowDelete($event)">
+</app-datagrid>

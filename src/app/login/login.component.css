@@ -1,0 +1,15 @@
+.form-control
+{
+  border-color: black;
+}
+
+input:focus
+{
+  border-width: 2px
+}
+
+input:hover
+{
+  border-width: 2px
+
+}

@@ -1,0 +1,12 @@
+.btn-lg {
+    height: 200px;
+    width: 300px;
+    margin-bottom: 30px;
+    padding: 20px;
+    font-size:xx-large;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+    background-color:#0d6efd;
+    color: white; 
+  }
+   
