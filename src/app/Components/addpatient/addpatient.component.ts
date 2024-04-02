@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Patient } from '../models/patient.model';
-import { PatientLogic } from '../logic/patient.logic';
-import { BloodType, Gender, Insurance } from '../models/constants';
+import { Patient } from '../../Models/app.model';
+
+import { BloodType, Gender, Insurance } from '../../Models/app.constants';
 import { Router } from '@angular/router';
+import { AdminHttpService } from '../../Services/AdminHttp.service';
 
 
 @Component({
@@ -24,25 +25,27 @@ export class AddpatientComponent {
   bloodtype : Array<string>;
   insurance : Array<string>;
   columns:Array<string>;
-  private logic:PatientLogic;
+
+  message:string;
 
 
-  constructor(private router: Router){
-    this.patient = new Patient('','','','', '','','','','','','',);
+  constructor(private serv:AdminHttpService,private router: Router){
+    this.patient = new Patient(0,'','',new Date(), '','','','','','','',);
     this.patients = new Array<Patient>();
-    this.logic = new PatientLogic();
-    this.patients = this.logic.getPatients();
+
+   
     this.columns = new Array<string>();
     this.columns = Object.keys(this.patient);
     this.bloodtype = BloodType;
     this.insurance = Insurance;
     this.gender = Gender;
+    this.message="";
   }
 
   clear():void {
-    this.patient = new Patient('','','', '','','','','','','','',);
+    this.patient = new Patient(0,'','', new Date(),'','','','','','','',);
   }
-  save():void 
+  save():void
   {
     if (
       this.patient.FirstName &&
@@ -54,14 +57,23 @@ export class AddpatientComponent {
       this.patient.EmergencyContact&&
       this.patient.Gender&&
       this.patient.Insurance
-    ) 
+    )
     {
-      this.patients = this.logic.addPatient(this.patient);
+      this.serv.postPatient(this.patient, "").subscribe({
+        next: (response) => {
+
+          console.log(this.patient);
+          this.message = response.Message;
+        },
+        error: (error) => {
+          this.message = `Error: ${error}`;
+        }
+      })
       this.router.navigate(['/viewpatients'], { state: { newPatient: this.patient } });
       this.clear();
-    } 
-    
-    else 
+    }
+
+    else
     {
       alert('Please fill in all fields.');
     }

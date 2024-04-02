@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Doctor } from '../models/doctor.model';
-import { DoctorLogic } from '../logic/doctor.logic';
-import { BloodType, Gender, Insurance, Speciality } from '../models/constants';
+import { Doctor } from '../../Models/app.model';
+import { BloodType, Gender, Insurance, Speciality } from '../../Models/app.constants';
 import { Router } from '@angular/router';
 
 
@@ -22,21 +21,20 @@ export class AdddoctorComponent {
   doctors:Array<Doctor>;
   speciality : Array<string>;
   columns:Array<string>;
-  private logic:DoctorLogic;
+
 
 
   constructor(private router: Router){
-    this.doctor = new Doctor('','','','', '','');
-    this.logic = new DoctorLogic();
-    this.doctors = this.logic.getDoctors();
+    this.doctor = new Doctor(0,'','','', '','');
+    this.doctors=new Array<Doctor>;
     this.columns = Object.keys(this.doctor);
     this.speciality = Speciality;
   }
 
   clear():void {
-    this.doctor = new Doctor('','','', '','','');
+    this.doctor = new Doctor(0,'','', '','','');
   }
-  save():void 
+  save():void
   {
     if (
       this.doctor.FirstName &&
@@ -44,14 +42,14 @@ export class AdddoctorComponent {
       this.doctor.Email &&
       this.doctor.Speciality&&
       this.doctor.Salary
-    ) 
+    )
     {
-      this.doctors = this.logic.addDoctor(this.doctor);
+      
       this.router.navigate(['/viewdoctors'], { state: { newDoctor: this.doctor } });
       this.clear();
-    } 
-    
-    else 
+    }
+
+    else
     {
       alert('Please fill in all fields.');
     }

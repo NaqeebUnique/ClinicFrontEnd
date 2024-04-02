@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Doctor } from '../models/doctor.model';
-import { DoctorLogic } from '../logic/doctor.logic';
+import { Doctor } from '../../Models/app.model';
+//import { DoctorLogic } from '../logic/doctor.logic';
 import { RouterModule } from '@angular/router';
 import { AdddoctorComponent } from '../adddoctor/adddoctor.component';
 import { DocgridComponent } from '../docgrid/docgrid.component';
@@ -18,14 +18,15 @@ export class ViewdoctorsComponent {
 
   doctor:Doctor;
   doctors:Array<Doctor>;
-  private logic:DoctorLogic;
+  //private logic:DoctorLogic;
   columns:Array<string>
-  newDoctor: Doctor | undefined; 
+  newDoctor: Doctor | undefined;
 
   constructor(){
-    this.doctor = new Doctor('','','','', '','');
-    this.logic = new DoctorLogic();
-    this.doctors = this.logic.getDoctors();
+    this.doctor = new Doctor(0,'','','', '','');
+    //this.logic = new DoctorLogic();
+    //this.doctors = this.logic.getDoctors();
+    this.doctors=new Array<Doctor>;
     this.columns = Object.keys(this.doctor);
     this.checkForNewDoctor();
   }
@@ -36,10 +37,10 @@ export class ViewdoctorsComponent {
       this.doctors.push(this.newDoctor);
     }
   }
-  
+
    onRowDelete(row:Doctor):void
    {
-    this.doctors = this.logic.deleteDoctor(row);
+    //this.doctors = this.logic.deleteDoctor(row);
    }
 
 

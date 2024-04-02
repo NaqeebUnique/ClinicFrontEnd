@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Doctor } from '../models/doctor.model';
+import { Doctor } from '../../Models/app.model';
 import { RouterModule } from '@angular/router';
 import { AdddoctorComponent } from '../adddoctor/adddoctor.component';
-import { Appointment } from '../models/appointment.model';
-import { AppointmentLogic } from '../logic/appointment.logic';
+import { Appointment } from '../../Models/app.model';
+
 
 @Component({
   selector: 'app-appointments',
@@ -16,14 +16,14 @@ export class AppointmentsComponent {
 
   appointment:Appointment;
   appointments:Array<Appointment>;
-  private logic:AppointmentLogic;
+
   columns:Array<string>
-  newAppointment: Appointment | undefined; 
+  newAppointment: Appointment | undefined;
 
   constructor(){
-    this.appointment = new Appointment('','','','', '');
-    this.logic = new AppointmentLogic();
-    this.appointments = this.logic.getAppointments();
+    this.appointment = new Appointment(0,0,new Date(),'', 0);
+    this.appointments=new Array<Appointment>;
+
     this.columns = Object.keys(this.appointment);
     this.checkForNewAppointment();
   }
@@ -34,9 +34,9 @@ export class AppointmentsComponent {
       this.appointments.push(this.newAppointment);
     }
   }
-  
+
    onAppointmentDelete(row:Appointment):void
    {
-    this.appointments = this.logic.deleteAppointment(row);
+    //this.appointments = this.logic.deleteAppointment(row);
    }
 }

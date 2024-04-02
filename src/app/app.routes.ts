@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { ViewpatientsComponent } from './viewpatients/viewpatients.component';
-import { AddpatientComponent } from './addpatient/addpatient.component';
-import { LoginComponent } from './login/login.component';
-import { ViewdoctorsComponent } from './viewdoctors/viewdoctors.component';
-import { AdddoctorComponent } from './adddoctor/adddoctor.component';
-import { AdminhomepageComponent } from './adminhomepage/adminhomepage.component';
-import { AppointmentsComponent } from './appointments/appointments.component';
+import { ViewpatientsComponent } from './Components/viewpatients/viewpatients.component';
+import { AddpatientComponent } from './Components/addpatient/addpatient.component';
+import { LoginComponent } from './Components/login/login.component';
+import { ViewdoctorsComponent } from './Components/viewdoctors/viewdoctors.component';
+import { AdddoctorComponent } from './Components/adddoctor/adddoctor.component';
+import { AdminhomepageComponent } from './Components/adminhomepage/adminhomepage.component';
+import { AppointmentsComponent } from './Components/appointments/appointments.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/adminhomepage', pathMatch: 'full' },

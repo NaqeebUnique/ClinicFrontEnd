@@ -1,6 +1,6 @@
 export const Gender = ["Male", "Female", "Other"];
 
-export const BloodType = [        
+export const BloodType = [
     "A+",
     "A-",
     "B+",
@@ -22,6 +22,3 @@ export const Speciality = [
     "ENT",
     "Dental"
 ];
-
-
-

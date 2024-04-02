@@ -22,7 +22,7 @@
     <label>Email Address</label>
     <input type="text" class="form-control" id="emailinput" [(ngModel)]="patient.Email">
     @if (patient.Email && !patient.Email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
-    { 
+    {
       <div class="text-danger">Invalid email address</div>
     }
     <br>

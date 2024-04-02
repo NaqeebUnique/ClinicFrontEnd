@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ViewpatientsComponent } from '../viewpatients/viewpatients.component';
 import { FormsModule } from '@angular/forms';
-import { Patient } from '../models/patient.model';
-import { PatientLogic } from '../logic/patient.logic';
+import { Patient } from '../../Models/app.model';
+//import { PatientLogic } from '../logic/patient.logic';
 import { RouterModule } from '@angular/router';
- 
+
 @Component({
   selector: 'app-datagrid',
   standalone: true,
@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 })
 
 export class DatagridComponent {
- 
+
   @Input() columns: Array<any>;
   @Input() data:Array<Patient>;
   @Input() CanDelete: boolean;
@@ -22,7 +22,7 @@ export class DatagridComponent {
   @Input() searchPatientId: string;
   @Output() rowDeleted: EventEmitter<any>;
   isChecked: boolean;
-  logic: PatientLogic;
+  //logic: PatientLogic;
 
   constructor() {
     this.columns=new Array<any>();
@@ -32,7 +32,7 @@ export class DatagridComponent {
     this.rowDeleted = new EventEmitter<any>();
     this.isChecked = false;
     this.searchPatientId = '';
-    this.logic = new PatientLogic();
+    //this.logic = new PatientLogic();
   }
 
   ToggleDelete(){
@@ -40,22 +40,22 @@ export class DatagridComponent {
 
   ToggleRestore(){
     this.CanRestore = !this.CanRestore}
- 
+
   deleteRow(row: any) {
     const index = this.data.indexOf(row);
     if (index !== -1) {
       this.data.splice(index, 1);
       this.rowDeleted.emit(row);
     }
-  } 
+  }
 
   RestoreData()
   {
-    this.data = this.logic.getPatients();
+    //this.data = this.logic.getPatients();
     this.searchPatientId='';
   }
 
   search() {
-      this.data = this.data.filter(prd => prd.PatientID.toLowerCase().includes(this.searchPatientId.toLowerCase()));
+     // this.data = this.data.filter(prd => prd.PatientID.toLowerCase().includes(this.searchPatientId.toLowerCase()));
   }
 }
