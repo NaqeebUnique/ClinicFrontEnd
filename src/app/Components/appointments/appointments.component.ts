@@ -25,15 +25,8 @@ export class AppointmentsComponent {
     this.appointments=new Array<Appointment>;
 
     this.columns = Object.keys(this.appointment);
-    this.checkForNewAppointment();
   }
 
-  checkForNewAppointment(): void {
-    this.newAppointment = history.state.newAppointment;
-    if (this.newAppointment) {
-      this.appointments.push(this.newAppointment);
-    }
-  }
 
    onAppointmentDelete(row:Appointment):void
    {

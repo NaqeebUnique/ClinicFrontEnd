@@ -6,6 +6,8 @@ import { ViewdoctorsComponent } from './Components/viewdoctors/viewdoctors.compo
 import { AdddoctorComponent } from './Components/adddoctor/adddoctor.component';
 import { AdminhomepageComponent } from './Components/adminhomepage/adminhomepage.component';
 import { AppointmentsComponent } from './Components/appointments/appointments.component';
+import { AddappointmentComponent } from './Components/addappointment/addappointment.component';
+import { EditpatientComponent } from './Components/editpatient/editpatient.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/adminhomepage', pathMatch: 'full' },
@@ -15,6 +17,9 @@ export const routes: Routes = [
   { path: 'addpatient', component: AddpatientComponent },
   { path: 'viewdoctors', component: ViewdoctorsComponent },
   { path: 'adddoctor', component: AdddoctorComponent },
-  { path: 'appointments', component: AppointmentsComponent }
+  { path: 'appointments', component: AppointmentsComponent },
+  { path: 'addappointment', component: AddappointmentComponent},
+  { path: 'editpatient/:id', component: EditpatientComponent},
+  { path: 'addappointment', component: AddappointmentComponent}
 ];
 

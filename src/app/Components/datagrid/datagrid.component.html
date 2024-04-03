@@ -1,45 +1,61 @@
-  <div class="form-group" style="margin-left: 20px;">
-    <label for="patientId">Search by Patient ID:</label>
-    <input type="text" class="form-control" id="patientId" [(ngModel)]="searchPatientId" style = "width: 25%;">
-
-    <button id = "searchbutton" class="btn btn-primary" (click)="search();ToggleRestore()">Search</button>
-    @if(this.CanRestore)
-    {    <button class="btn btn-success" (click)="RestoreData();ToggleRestore()">Restore</button>  }
+  <div class="form-group" style="margin-left: 20px; display: flex; align-items: center;">
+    <label for="patientId" style="margin-right: 10px;">Search by Patient ID:</label>
+    <input type="text" class="form-control" id="patientId" [formControl]="searchInput" style="width: 25%;">
+  
+    <label for="namesearch" style="margin-left: 20px; margin-right: 10px;">Search by Patient Name:</label>
+    <input type="text" class="form-control" id="namesearch" [formControl]="nameInput" style="width: 25%;">
   </div>
 
 @if (data.length == 0) {
-    <h3 class="m-2">No Data To Show</h3>
-  }
-   
-  @else {
-    <br>
-  <table class="table table-bordered table-striped">
-   
-    <thead>
-      <tr>   
-          @for (col of columns; track $index) 
-          {
-            <th>{{col}}</th>
-          }
-   
-          <th><button class="btn btn-primary" (click)="ToggleDelete()">Enable Delete</button></th>
-       </tr>
-    </thead>
+  <h3 class="m-2">No Data To Show</h3>
+} 
 
+@else {
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        @for (col of columns; track $index) 
+        {
+          <th>{{ col }}</th>
+        }
+        <th><button class="btn btn-primary" (click)="ToggleDelete()">Enable Delete</button></th>
+        <th><button class="btn btn-primary" (click)="ToggleEdit()">Enable Edit</button></th>
+      </tr>
+    </thead>
     <tbody>
-      @for (prd of data; track $index) {
-        <tr>   
-          @for (col of columns; track $index) {
-            <td>{{prd[col]}}</td>
+      @for (patient of data; track $index) 
+      {
+        <tr>
+          <td>{{ patient.patientID }}</td>
+          <td>{{ patient.firstName }}</td>
+          <td>{{ patient.lastName }}</td>
+          <td>{{ patient.dob | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ patient.contact }}</td>
+          <td>{{ patient.email }}</td>
+          <td>{{ patient.address }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.bloodType }}</td>
+          <td>{{ patient.emergencyContact }}</td>
+          <td>{{ patient.insurance }}</td>
+          <td>
+
+          @if (CanDelete) 
+          {
+              <button class="btn btn-danger" (click)="deleteRow(patient)">Delete</button>
           }
-          @if (CanDelete) {
-            <td>
-              <button class="btn btn-danger" (click)="deleteRow(prd)">Delete</button>
-            </td>
+        </td>
+
+        <td>
+
+          @if (CanEdit) 
+          {
+              <button class="btn btn-warning" (click)="navigateToEdit(patient.patientID)">Edit</button>
           }
+        </td>
+
         </tr>
       }
     </tbody>
-    
   </table>
-  } 
+}
