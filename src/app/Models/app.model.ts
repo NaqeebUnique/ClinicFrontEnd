@@ -44,17 +44,17 @@ export class Doctor{
 export class Patient{
   [x:string]:any;
   constructor(
-    public PatientID:number,
-    public FirstName:string,
-    public LastName:string,
-    public DOB:Date,
-    public Contact:string,
-    public Email:string,
-    public Address:string,
-    public Gender:string,
-    public BloodType :string,
-    public EmergencyContact:string,
-    public Insurance:string
+    public patientID:number,
+    public firstName:string,
+    public lastName:string,
+    public dob:Date,
+    public contact:string,
+    public email:string,
+    public address:string,
+    public gender:string,
+    public bloodType :string,
+    public emergencyContact:string,
+    public insurance:string
   ){}
 }
 

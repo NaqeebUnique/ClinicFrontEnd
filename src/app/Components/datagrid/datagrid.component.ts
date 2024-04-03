@@ -1,61 +1,136 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ViewpatientsComponent } from '../viewpatients/viewpatients.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Patient } from '../../Models/app.model';
-//import { PatientLogic } from '../logic/patient.logic';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AdminHttpService } from '../../Services/AdminHttp.service';
+import { CommonModule } from '@angular/common';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { EditpatientComponent } from '../editpatient/editpatient.component';
 
 @Component({
   selector: 'app-datagrid',
   standalone: true,
-  imports: [FormsModule, ViewpatientsComponent, RouterModule],
+  imports: [FormsModule, ViewpatientsComponent, RouterModule, CommonModule, ReactiveFormsModule, EditpatientComponent],
   templateUrl: './datagrid.component.html',
   styleUrl: './datagrid.component.css'
 })
 
-export class DatagridComponent {
+export class DatagridComponent implements OnInit{
 
   @Input() columns: Array<any>;
   @Input() data:Array<Patient>;
-  @Input() CanDelete: boolean;
+  CanDelete: boolean;
+  CanEdit: boolean;
   @Input() CanRestore: boolean;
   @Input() searchPatientId: string;
   @Output() rowDeleted: EventEmitter<any>;
   isChecked: boolean;
-  //logic: PatientLogic;
+  message:string;
+  filteredData: Array<Patient>;
+  searchInput: FormControl;
+  nameInput: FormControl;
+  originalData: Array<any>;
 
-  constructor() {
+
+
+  constructor(private serv:AdminHttpService, private router: Router) {
     this.columns=new Array<any>();
     this.data=Array<Patient>();
     this.CanDelete = false;
+    this.CanEdit = false;
     this.CanRestore = false;
     this.rowDeleted = new EventEmitter<any>();
     this.isChecked = false;
     this.searchPatientId = '';
-    //this.logic = new PatientLogic();
+    this.message="";
+    this.filteredData = new Array<Patient>();
+    this.searchInput = new FormControl();
+    this.nameInput = new FormControl();
+    this.originalData = new Array<any>();
+
+  }
+
+  ngOnInit(): void {
+    this.serv.getPatients("").subscribe({
+      next: (response) => {
+        this.data = response.records;
+        this.originalData = response.records;
+        this.filteredData = this.originalData.slice();
+        this.message = response.Message;
+      },
+      error: (error) => {
+        this.message = `Error: ${error}`;
+      }
+    })
+
+    this.searchInput.valueChanges
+      .pipe(
+        debounceTime(300), 
+        distinctUntilChanged()
+      )
+      .subscribe(searchTerm => {
+        this.filterData(searchTerm);
+      });
+
+      this.nameInput.valueChanges
+      .pipe(
+        debounceTime(300), 
+        distinctUntilChanged()
+      )
+      .subscribe(searchTerm => {
+        this.filterName(searchTerm);
+      });
+  }
+
+  filterData(searchTerm: string) {
+    if (searchTerm.trim() === '') {
+      this.filteredData = this.originalData.slice(); 
+    } else {
+      this.filteredData = this.originalData.filter(patient => 
+        patient.patientID.toString().includes(searchTerm.trim())
+      );
+    }
+    this.data = this.filteredData;
+  }
+
+  filterName(searchTerm: string) {
+    if (searchTerm.trim() === '') {
+      this.filteredData = this.originalData.slice(); 
+    } else {
+      this.filteredData = this.originalData.filter(patient => 
+        patient.firstName.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
+        patient.lastName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      );
+    }
+    this.data = this.filteredData;
   }
 
   ToggleDelete(){
   this.CanDelete = !this.CanDelete}
 
-  ToggleRestore(){
-    this.CanRestore = !this.CanRestore}
+  ToggleEdit(){
+    this.CanEdit = !this.CanEdit}
 
   deleteRow(row: any) {
-    const index = this.data.indexOf(row);
-    if (index !== -1) {
-      this.data.splice(index, 1);
-      this.rowDeleted.emit(row);
-    }
+    this.serv.deletePatient(row.patientID, "").subscribe({
+      next: (response) => { 
+        const index = this.data.findIndex(patient => patient.patientID === row.patientID);
+        this.data.splice(index, 1);
+        this.message = response.Message;
+      },
+      error: (error) => {
+        this.message = `Error: ${error}`;
+      }
+    })
   }
 
-  RestoreData()
+  navigateToEdit(id: number)
   {
-    //this.data = this.logic.getPatients();
-    this.searchPatientId='';
+    this.router.navigate(['/editpatient', id]);
   }
 
-  search() {
-     // this.data = this.data.filter(prd => prd.PatientID.toLowerCase().includes(this.searchPatientId.toLowerCase()));
-  }
+  
+
 }
+

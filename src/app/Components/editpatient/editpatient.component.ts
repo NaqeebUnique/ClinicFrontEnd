@@ -1,45 +1,52 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Patient } from '../../Models/app.model';
 
 import { BloodType, Gender, Insurance } from '../../Models/app.constants';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AdminHttpService } from '../../Services/AdminHttp.service';
-import { Session } from 'inspector';
-
 
 @Component({
-  selector: 'app-addpatient',
+  selector: 'app-editpatient',
   standalone: true,
-  imports: [FormsModule],
-  templateUrl: './addpatient.component.html',
-  styleUrl: './addpatient.component.css'
+  imports: [RouterModule, FormsModule],
+  templateUrl: './editpatient.component.html',
+  styleUrl: './editpatient.component.css'
 })
-export class AddpatientComponent{
 
-  @Output() patientAdded: EventEmitter<Patient> = new EventEmitter<Patient>();
-  @ViewChild('formContainer') formContainer: any;
+export class EditpatientComponent implements OnInit{
 
   patient:Patient;
-  patients:Array<Patient>;
   gender: Array<string>;
   bloodtype : Array<string>;
   insurance : Array<string>;
-  columns:Array<string>;
+
   message:string;
-  token:any;
 
 
-  constructor(private serv:AdminHttpService,private router: Router){
+  constructor(private serv:AdminHttpService,private router: Router, private act:ActivatedRoute){
     this.patient = new Patient(0,'','',new Date(), '','','','','','','',);
-    this.patients = new Array<Patient>();   
-    this.columns = new Array<string>();
-    this.columns = Object.keys(this.patient);
+
     this.bloodtype = BloodType;
     this.insurance = Insurance;
     this.gender = Gender;
     this.message="";
-    this.token=sessionStorage.getItem("token");
+  }
+
+  ngOnInit(): void {
+    this.act.params.subscribe((params)=>{
+      this.patient.patientID = params['id'];
+
+      this.serv.getPatientById(this.patient.patientID, "").subscribe({
+        next: (response) => { 
+          this.patient = response.record;
+          this.message = response.Message;
+        },
+        error: (error) => {
+          this.message = `Error: ${error}`;
+        }
+      })
+    })
   }
 
   clear():void {
@@ -59,17 +66,16 @@ export class AddpatientComponent{
       this.patient.insurance
     )
     {
-      this.serv.postPatient(this.patient, this.token).subscribe({
+      this.serv.putPatient(this.patient.patientID, this.patient, "").subscribe({
         next: (response) => {
-
-          console.log(this.patient);
+          this.patient = response.record;
           this.message = response.Message;
         },
         error: (error) => {
           this.message = `Error: ${error}`;
         }
       })
-      this.router.navigate(['/viewpatients']);
+      this.router.navigate(['/viewpatients'], { state: { newPatient: this.patient } });
       this.clear();
     }
 
@@ -78,5 +84,4 @@ export class AddpatientComponent{
       alert('Please fill in all fields.');
     }
   }
-  
 }

@@ -15,7 +15,7 @@ import { AdminHttpService } from '../../Services/AdminHttp.service';
   templateUrl: './viewpatients.component.html',
   styleUrl: './viewpatients.component.css'
 })
-export class ViewpatientsComponent implements OnInit{
+export class ViewpatientsComponent{
 
   patient:Patient;
   patients:Array<Patient>;
@@ -27,33 +27,10 @@ export class ViewpatientsComponent implements OnInit{
   constructor(private serv:AdminHttpService){
     this.patient = new Patient(0,'','',new Date(), '','','','','','','',);
     this.patients=new Array<Patient>
-    this.columns = Object.keys(this.patient);
-    this.checkForNewPatient();
+    this.columns = ["Patient ID", "First Name", "Last Name", "Date of Birth", "Contact Number", "Email Address", "Home Address", "Gender", "Blood Type", "Emergency Contact", "Insurance Policy"];
     this.message="";
 
 
-  }
-  ngOnInit(): void {
-    this.serv.getPatients("").subscribe({
-      next: (response) => {
-        this.patients = response.records;
-        console.log(response);
-        console.log(response.records);
-        console.log(this.patients);
-
-        this.message = response.Message;
-      },
-      error: (error) => {
-        this.message = `Error: ${error}`;
-      }
-    })
-  }
-
-  checkForNewPatient(): void {
-    this.newPatient = history.state.newPatient;
-    if (this.newPatient) {
-      this.patients.push(this.newPatient);
-    }
   }
 
    onRowDelete(row:Patient):void

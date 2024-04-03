@@ -3,3 +3,21 @@
   color: darkgrey;
   text-align-last: center;
 }
+
+.form-control
+{
+  border-width: 2px;
+}
+
+.form-control:hover
+{
+  border-color: black;
+}
+
+.form-control:focus
+{
+  border-color: black;
+}
+
+label
+{font-weight: 700; font-size: large;}
