@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Doctor } from '../../Models/app.model';
-//import { DoctorLogic } from '../logic/doctor.logic';
 import { RouterModule } from '@angular/router';
 import { ViewdoctorsComponent } from '../viewdoctors/viewdoctors.component';
+import { AdminHttpService } from '../../Services/AdminHttp.service';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-docgrid',
@@ -13,7 +14,7 @@ import { ViewdoctorsComponent } from '../viewdoctors/viewdoctors.component';
   styleUrl: './docgrid.component.css'
 })
 
-export class DocgridComponent {
+export class DocgridComponent implements OnInit {
 
   @Input() columns: Array<any>;
   @Input() data:Array<Doctor>;
@@ -21,11 +22,14 @@ export class DocgridComponent {
   @Input() CanRestore: boolean;
   @Input() searchDoctorId: string;
   @Output() rowDeleted: EventEmitter<any>;
+  message:string;
 
   isChecked: boolean;
-  //logic: DoctorLogic;
+  token:any;
 
-  constructor() {
+  role = sessionStorage.getItem("role");
+
+  constructor(private serv:AdminHttpService) {
     this.columns=new Array<any>();
     this.data=Array<Doctor>();
     this.CanDelete = false;
@@ -33,26 +37,53 @@ export class DocgridComponent {
     this.rowDeleted = new EventEmitter<any>();
     this.isChecked = false;
     this.searchDoctorId = '';
-    //this.logic = new DoctorLogic();
+    this.message="";
+    this.token=sessionStorage.getItem("token");
   }
 
-  ToggleDelete(){
-  this.CanDelete = !this.CanDelete}
+  ngOnInit(): void {
+    const role = sessionStorage.getItem('role');
 
-  ToggleRestore(){
-    this.CanRestore = !this.CanRestore}
+    if (role === 'Administrator') {
+      const token = sessionStorage.getItem('token');
 
-  deleteRow(row: any) {
-    const index = this.data.indexOf(row);
-    if (index !== -1) {
-      this.data.splice(index, 1);
-      this.rowDeleted.emit(row);
+      this.serv.getDoctors(token).subscribe({
+        next: (response) => {
+          this.data = response.records;
+          console.log(this.data);
+          this.message = response.Message;
+        },
+        error: (error) => {
+          this.message = `Error: ${error}`;
+        }
+      });
+    } else {
+      this.message = "Unauthorized access!";
     }
   }
 
-  RestoreData()
-  {
-    //this.data = this.logic.getDoctors();
+
+  ToggleDelete(){
+    this.CanDelete = !this.CanDelete
+  }
+
+  ToggleRestore(){
+    this.CanRestore = !this.CanRestore
+  }
+
+  deleteRow(row: any) {
+    this.serv.deleteDoctor(row, "").subscribe({
+      next: (response) => {
+        console.log(row);
+        this.message = response.Message;
+      },
+      error: (error) => {
+        this.message = `Error: ${error}`;
+      }
+    });
+  }
+
+  RestoreData() {
     this.searchDoctorId='';
   }
 

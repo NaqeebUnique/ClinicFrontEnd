@@ -5,6 +5,7 @@ import { Patient } from '../../Models/app.model';
 import { BloodType, Gender, Insurance } from '../../Models/app.constants';
 import { Router } from '@angular/router';
 import { AdminHttpService } from '../../Services/AdminHttp.service';
+import { Session } from 'inspector';
 
 
 @Component({
@@ -25,8 +26,8 @@ export class AddpatientComponent{
   bloodtype : Array<string>;
   insurance : Array<string>;
   columns:Array<string>;
-  valid: boolean;
   message:string;
+  token:any;
 
 
   constructor(private serv:AdminHttpService,private router: Router){
@@ -38,7 +39,7 @@ export class AddpatientComponent{
     this.insurance = Insurance;
     this.gender = Gender;
     this.message="";
-    this.valid = true;
+    this.token=sessionStorage.getItem("token");
   }
 
   clear():void {
@@ -58,7 +59,7 @@ export class AddpatientComponent{
       this.patient.insurance
     )
     {
-      this.serv.postPatient(this.patient, "").subscribe({
+      this.serv.postPatient(this.patient, this.token).subscribe({
         next: (response) => {
 
           console.log(this.patient);

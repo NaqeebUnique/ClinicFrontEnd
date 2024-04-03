@@ -10,36 +10,36 @@
 @if (data.length == 0) {
     <h3 class="m-2">No Data To Show</h3>
   }
-   
+
   @else {
     <br>
   <table class="table table-bordered table-striped">
-   
+
     <thead>
-      <tr>   
-          @for (col of columns; track $index) 
+      <tr>
+          @for (col of columns; track $index)
           {
             <th>{{col}}</th>
           }
-   
+
           <th><button class="btn btn-primary" (click)="ToggleDelete()">Enable Delete</button></th>
        </tr>
     </thead>
 
     <tbody>
       @for (ptn of data; track $index) {
-        <tr>   
+        <tr>
           @for (col of columns; track $index) {
             <td>{{ptn[col]}}</td>
           }
           @if (CanDelete) {
             <td>
-              <button class="btn btn-danger" (click)="deleteRow(ptn)">Delete</button>
+              <button class="btn btn-danger" (click)="deleteRow(ptn.doctorID)">Delete</button>
             </td>
           }
         </tr>
       }
     </tbody>
-    
+
   </table>
-  } 
+  }

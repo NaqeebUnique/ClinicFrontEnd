@@ -10,7 +10,7 @@ import { AddappointmentComponent } from './Components/addappointment/addappointm
 import { EditpatientComponent } from './Components/editpatient/editpatient.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/adminhomepage', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'adminhomepage', component: AdminhomepageComponent},
   { path: 'login', component: LoginComponent },
   { path: 'viewpatients', component: ViewpatientsComponent },

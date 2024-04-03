@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResponse, Appointment, DoctorIncome, Doctor, Patient, Visit } from '../Models/app.model';
 import { Observable } from 'rxjs';
@@ -69,20 +69,31 @@ deleteAppointment(id:number,token:any):Observable<APIResponse<Appointment>> {
   return response;
 }
 
-getDoctors(token:any):Observable<APIResponse<Doctor>>{
-  let response:Observable<APIResponse<Doctor>>;
-  //from here we are calling the API
-  response=this.http.get<APIResponse<Doctor>>(`${this.url}api/Admin/GetDoctors`,{
-    headers:{
-      'AUTHORIZATION':`Bearer ${token}`
-    }
+// getDoctors(token:any):Observable<APIResponse<Doctor>>{
+//   let response:Observable<APIResponse<Doctor>>;
+//   //from here we are calling the API
+//   response=this.http.get<APIResponse<Doctor>>(`${this.url}api/Admin/GetDoctors`,{
+//     headers:{
+//       'AUTHORIZATION':`Bearer ${token}`
+//     }
+//   });
+
+//   return response;
+// }
+getDoctors(token: any): Observable<APIResponse<Doctor>> {
+  const token1=sessionStorage.getItem("token");
+  console.log(token);
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token1}`
   });
 
-  return response;
+  return this.http.get<APIResponse<Doctor>>(`${this.url}api/Admin/GetDoctors`, { headers });
 }
 
 getDoctorById(id:number,token:any):Observable<APIResponse<Doctor>> {
   let response:Observable<APIResponse<Doctor>>;
+
   response = this.http.get<APIResponse<Doctor>>(`${this.url}api/Admin/GetDoctor/${id}`,{
     headers:{
       'AUTHORIZATION':`Bearer ${token}`
