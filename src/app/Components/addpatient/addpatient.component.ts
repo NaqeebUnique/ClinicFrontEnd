@@ -5,6 +5,7 @@ import { Patient } from '../../Models/app.model';
 import { BloodType, Gender, Insurance } from '../../Models/app.constants';
 import { Router } from '@angular/router';
 import { AdminHttpService } from '../../Services/AdminHttp.service';
+import { Session } from 'inspector';
 
 
 @Component({
@@ -27,19 +28,21 @@ export class AddpatientComponent {
   columns:Array<string>;
 
   message:string;
+  token:any;
 
 
   constructor(private serv:AdminHttpService,private router: Router){
     this.patient = new Patient(0,'','',new Date(), '','','','','','','',);
     this.patients = new Array<Patient>();
 
-   
+
     this.columns = new Array<string>();
     this.columns = Object.keys(this.patient);
     this.bloodtype = BloodType;
     this.insurance = Insurance;
     this.gender = Gender;
     this.message="";
+    this.token=sessionStorage.getItem("token");
   }
 
   clear():void {
@@ -59,7 +62,7 @@ export class AddpatientComponent {
       this.patient.Insurance
     )
     {
-      this.serv.postPatient(this.patient, "").subscribe({
+      this.serv.postPatient(this.patient, this.token).subscribe({
         next: (response) => {
 
           console.log(this.patient);

@@ -8,7 +8,7 @@ import { AdminhomepageComponent } from './Components/adminhomepage/adminhomepage
 import { AppointmentsComponent } from './Components/appointments/appointments.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/adminhomepage', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'adminhomepage', component: AdminhomepageComponent},
   { path: 'login', component: LoginComponent },
   { path: 'viewpatients', component: ViewpatientsComponent },

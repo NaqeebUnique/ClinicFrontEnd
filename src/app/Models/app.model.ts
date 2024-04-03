@@ -32,12 +32,12 @@ export class DoctorIncome {
 export class Doctor{
   [x:string]:any;
   constructor(
-    public DoctorID:number,
-    public FirstName:string,
-    public LastName:string,
-    public Speciality:string,
-    public Email: string,
-    public Salary: string
+    public doctorID:number,
+    public firstName:string,
+    public lastName:string,
+    public speciality:string,
+    public email: string,
+    public salary: string
   ){}
 }
 
@@ -78,7 +78,7 @@ export class Report{
 }
 
 export class Visit{
-  [x:string]:any; 
+  [x:string]:any;
   constructor(
     public VId:number,
     public PId:number,

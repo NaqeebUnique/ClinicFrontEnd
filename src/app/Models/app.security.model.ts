@@ -32,9 +32,9 @@ export class UserRole {
 
 export class SecurityResponse{
   constructor(
-    public Message:string,
-    public Token:string,
-    public IsLoggedIn:boolean,
+    public message:string,
+    public token:string,
+    public isLoggedIn:boolean,
     public roles:string
 
   ){}
