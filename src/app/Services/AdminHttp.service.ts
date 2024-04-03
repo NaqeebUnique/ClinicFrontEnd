@@ -81,11 +81,11 @@ deleteAppointment(id:number,token:any):Observable<APIResponse<Appointment>> {
 //   return response;
 // }
 getDoctors(token: any): Observable<APIResponse<Doctor>> {
-  const token1=sessionStorage.getItem("token");
+
   console.log(token);
   const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token1}`
+    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjVjOWU0NzRkLWM4NjktNDUwZi05Y2YyLWU5Mzc4NmNjYTliNyIsInJvbGUiOiJBZG1pbmlzdHJhdG9yIiwibmJmIjoxNzEyMTQyMTIwLCJleHAiOjE3MTIxNDMzMjAsImlhdCI6MTcxMjE0MjEyMH0.F-TrkPQMF2oUIOfXw8tIcrHMgwrVpBq177L6hhTXWZY`
   });
 
   return this.http.get<APIResponse<Doctor>>(`${this.url}api/Admin/GetDoctors`, { headers });
