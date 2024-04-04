@@ -1,11 +1,11 @@
 export class Appointment {
   [x:string]:any;
   constructor(
-    public  AppoinmentId:number,
-    public PatientId:number,
+    public appoinmentId:number,
+    public patientId:number,
     public date:Date,
     public timeSlot:string,
-    public DoctorId:number
+    public doctorId:number
   ){}
 }
 
@@ -21,13 +21,6 @@ export class Bill {
   ){}
 }
 
-export class DoctorIncome {
-  [x:string]:any;
-  constructor(
-    public DoctorId:number,
-    public Salary:number
-  ){}
-}
 
 export class Doctor{
   [x:string]:any;
@@ -37,7 +30,7 @@ export class Doctor{
     public lastName:string,
     public speciality:string,
     public email: string,
-    public salary: string
+    public salary: number
   ){}
 }
 
@@ -70,10 +63,10 @@ export class Prescription{
 export class Report{
   [x:string]:any;
   constructor(
-   public ReportID:number,
-   public PatientID:number,
-   public DId:number,
-   public Diagnosis:string
+   public reportID:number,
+   public patientID:number,
+   public dId:number,
+   public diagnosis:string
   ){}
 }
 

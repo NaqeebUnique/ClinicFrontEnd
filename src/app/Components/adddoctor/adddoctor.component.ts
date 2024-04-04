@@ -27,7 +27,7 @@ export class AdddoctorComponent {
 
 
   constructor(private serv:AdminHttpService,private router: Router){
-    this.doctor = new Doctor(0,'','','', '','');
+    this.doctor = new Doctor(0,'','','', '',0);
     this.doctors=new Array<Doctor>;
     this.columns = Object.keys(this.doctor);
     this.speciality = Speciality;
@@ -35,7 +35,7 @@ export class AdddoctorComponent {
   }
 
   clear():void {
-    this.doctor = new Doctor(0,'','', '','','');
+    this.doctor = new Doctor(0,'','', '','',0);
   }
   save():void
   {

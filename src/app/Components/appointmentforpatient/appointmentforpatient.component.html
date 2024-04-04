@@ -1,6 +1,5 @@
-<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">Appointments</h1>
-
-<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addappointment">Add Appointment</button>
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">My Appointments</h1>
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
 
 <br>
 <br>
@@ -10,7 +9,7 @@
 
     @if (appointments.length === 0)
     {
-      <h3 class="m-2">No Data To Show</h3>
+      <h3 class="m-2">No Appointments</h3>
     }
 
     @for (appointment of appointments; track $index)
@@ -24,10 +23,6 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td><b>Patient ID:</b></td>
-                  <td>{{ appointment.patientId }}</td>
-                </tr>
-                <tr>
                   <td><b>Date:</b></td>
                   <td>{{ appointment.date | date: 'yyyy-MM-dd' }}</td>
                 </tr>
@@ -36,12 +31,11 @@
                   <td>{{ appointment.timeSlot }}</td>
                 </tr>
                 <tr>
-                  <td><b>Doctor ID:</b></td>
-                  <td>{{ appointment.doctorId }}</td>
-                </tr>
+                    <td><b>Doctor ID:</b></td>
+                    <td>{{ appointment.doctorId + " : " + getDoctorName(appointment.doctorId)}}</td>
+                  </tr>
               </tbody>
             </table>
-            <button class="btn btn-danger" (click)="onAppointmentDelete(appointment)">Delete</button>
           </div>
         </div>
       </div>

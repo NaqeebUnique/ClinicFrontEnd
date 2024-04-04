@@ -5,11 +5,13 @@ import { DatagridComponent } from './Components/datagrid/datagrid.component';
 import { AddpatientComponent } from './Components/addpatient/addpatient.component';
 import { LoginComponent } from './Components/login/login.component';
 import { AppointmentsComponent } from './Components/appointments/appointments.component';
+import { ViewreportsComponent } from './Components/viewreports/viewreports.component';
+import { AddReportComponent } from './Components/addreport/addreport.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ViewpatientsComponent, AddpatientComponent, DatagridComponent, LoginComponent, AppointmentsComponent],
+  imports: [RouterOutlet, ViewpatientsComponent, AddpatientComponent, DatagridComponent, LoginComponent, AppointmentsComponent, ViewreportsComponent, AddReportComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

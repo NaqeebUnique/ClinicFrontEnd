@@ -1,0 +1,48 @@
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">My Bills</h1>
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+
+    @if (bills.length === 0)
+    {
+      <h3 class="m-2">No Bills</h3>
+    }
+
+    @for (bill of bills; track $index)
+    {
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{"Bill ID : "+ bill.billID }}</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td><b>Date:</b></td>
+                  <td>{{ bill.dateOfVisit| date: 'yyyy-MM-dd' }}</td>
+                </tr>
+                <tr>
+                  <td><b>Consulting Charge:</b></td>
+                  <td>{{ bill.consultingCharge }}</td>
+                </tr>
+                <tr>
+                    <td><b>Insurance Coverage:</b></td>
+                    <td>{{ bill.insuranceCoverage }}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Total Charge:</b></td>
+                    <td>{{ bill.totalCharge }}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
