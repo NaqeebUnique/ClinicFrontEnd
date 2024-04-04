@@ -1,0 +1,44 @@
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">My Appointments</h1>
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+
+    @if (appointments.length === 0)
+    {
+      <h3 class="m-2">No Appointments</h3>
+    }
+
+    @for (appointment of appointments; track $index)
+    {
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{"Appointment ID : "+ appointment.appoinmentId }}</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td><b>Patient:</b></td>
+                  <td>{{ appointment.patientId + " : " + getPatientName(appointment.patientId) }}</td>
+                </tr>
+                <tr>
+                  <td><b>Date:</b></td>
+                  <td>{{ appointment.date | date: 'yyyy-MM-dd' }}</td>
+                </tr>
+                <tr>
+                  <td><b>Time Slot:</b></td>
+                  <td>{{ appointment.timeSlot }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

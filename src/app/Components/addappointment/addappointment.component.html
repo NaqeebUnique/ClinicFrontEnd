@@ -2,7 +2,6 @@
 
 
 <h2>Add Appointment</h2>
-
 <div class="container">
   <div class="form-group">
     <br>
@@ -30,7 +29,7 @@
         <label>Doctor</label>
         <select class="form-control" [(ngModel)]="appointment.doctorId">
           @for (did of this.doctors; track $index) {
-            <option value="{{did.firstName}}{{' '}}{{did.lastName}}">{{did.firstName}}{{" "}}{{did.lastName}}</option>
+            <option value="{{did.doctorID}}">{{did.firstName+" "+did.lastName}}</option>
           }
         </select>
       </div>

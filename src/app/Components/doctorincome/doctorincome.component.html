@@ -1,0 +1,66 @@
+<h1>My Income</h1>
+
+<div class="container mt-4">
+    <button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+    <br><br>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Salary</h5>
+              <p class="card-text">{{ salary| currency:'INR':'symbol':'1.0-2' }}</p>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-md-3 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Commission</h5>
+              <p class="card-text">{{ commission| currency:'INR':'symbol':'1.0-2' }}</p>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Daily Income</h5>
+            <p class="card-text">{{ dailyIncome | currency:'INR':'symbol':'1.0-2' }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Monthly Income</h5>
+            <p class="card-text">{{ monthlyIncome | currency:'INR':'symbol':'1.0-2' }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Quarterly Income</h5>
+            <p class="card-text">{{ quarterlyIncome | currency:'INR':'symbol':'1.0-2' }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Yearly Income</h5>
+            <p class="card-text">{{ yearlyIncome | currency:'INR':'symbol':'1.0-2' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

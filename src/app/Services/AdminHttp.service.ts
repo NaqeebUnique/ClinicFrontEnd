@@ -1,6 +1,6 @@
 import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIResponse, Appointment, DoctorIncome, Doctor, Patient, Visit } from '../Models/app.model';
+import { APIResponse, Appointment, Bill, Doctor, Patient, Visit } from '../Models/app.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ constructor(private http:HttpClient) {
   getAppointment(token:any):Observable<APIResponse<Appointment>>{
     let response:Observable<APIResponse<Appointment>>;
     //from here we are calling the API
-    response=this.http.get<APIResponse<Appointment>>(`${this.url}api/Admin/GetAppointments`,{
+    response=this.http.get<APIResponse<Appointment>>(`${this.url}api/Admin/GetAppoinments`,{
       headers:{
         'AUTHORIZATION':`Bearer ${token}`
       }
@@ -30,7 +30,7 @@ constructor(private http:HttpClient) {
 
   getAppointmentById(id:number,token:any):Observable<APIResponse<Appointment>> {
     let response:Observable<APIResponse<Appointment>>;
-    response = this.http.get<APIResponse<Appointment>>(`${this.url}api/Admin/GetAppointment/${id}`,{
+    response = this.http.get<APIResponse<Appointment>>(`${this.url}api/Admin/GetAppoinment/${id}`,{
       headers:{
         'AUTHORIZATION':`Bearer ${token}`
       }
@@ -61,7 +61,7 @@ putAppointment(id:number,app:Appointment,token:any):Observable<APIResponse<Appoi
 
 deleteAppointment(id:number,token:any):Observable<APIResponse<Appointment>> {
   let response:Observable<APIResponse<Appointment>>;
-  response = this.http.delete<APIResponse<Appointment>>(`${this.url}api/Admin/DeleteAppointment/${id}`,{
+  response = this.http.delete<APIResponse<Appointment>>(`${this.url}api/Admin/DeleteAppoinment/${id}`,{
     headers:{
       'AUTHORIZATION':`Bearer ${token}`
     }
@@ -186,17 +186,7 @@ response = this.http.delete<APIResponse<Patient>>(`${this.url}api/Admin/DeletePa
 return response;
 }
 
-getIDs(token:any):Observable<APIResponse<DoctorIncome>>{
-  let response:Observable<APIResponse<DoctorIncome>>;
-  //from here we are calling the API
-  response=this.http.get<APIResponse<DoctorIncome>>(`${this.url}api/Admin/GetDIs`,{
-    headers:{
-      'AUTHORIZATION':`Bearer ${token}`
-    }
-  });
 
-  return response;
-}
 getDIById(id:number,token:any):Observable<APIResponse<Patient>> {
   let response:Observable<APIResponse<Patient>>;
   response = this.http.get<APIResponse<Patient>>(`${this.url}api/Admin/GetDI/${id}`,{
@@ -207,27 +197,7 @@ getDIById(id:number,token:any):Observable<APIResponse<Patient>> {
   return response;
 }
 
-postDI(app:Patient,token:any):Observable<APIResponse<DoctorIncome>> {
-  let response:Observable<APIResponse<DoctorIncome>>;
-  response = this.http.post<APIResponse<DoctorIncome>>(`${this.url}api/Admin/PostDI`, app, {
-    headers: {
-      'Content-Type':'application/json',
-      'AUTHORIZATION':`Bearer ${token}`
-    }
-  });
-  return response;
-  }
 
-putDI(id:number,app:DoctorIncome,token:any):Observable<APIResponse<DoctorIncome>> {
-    let response:Observable<APIResponse<DoctorIncome>>;
-    response = this.http.put<APIResponse<DoctorIncome>>(`${this.url}api/Admin/PutDI/${id}`, app, {
-      headers: {
-        'Content-Type':'application/json',
-        'AUTHORIZATION':`Bearer ${token}`
-      }
-    });
-    return response;
-}
 
 getVisits(token:any):Observable<APIResponse<Visit>>{
   let response:Observable<APIResponse<Visit>>;
@@ -250,5 +220,29 @@ getVisitById(id:number,token:any):Observable<APIResponse<Visit>> {
   });
   return response;
 }
+
+postBill(app:Bill,token:any):Observable<APIResponse<Bill>> {
+  let response:Observable<APIResponse<Bill>>;
+  response = this.http.post<APIResponse<Bill>>(`${this.url}api/Admin/PostBill`, app, {
+    headers: {
+      'Content-Type':'application/json',
+      'AUTHORIZATION':`Bearer ${token}`
+    }
+  });
+  return response;
+  }
+
+  getBills(token:any):Observable<APIResponse<Bill>>{
+    let response:Observable<APIResponse<Bill>>;
+    //from here we are calling the API
+    response=this.http.get<APIResponse<Bill>>(`${this.url}api/Admin/GetBills`,{
+      headers:{
+        'AUTHORIZATION':`Bearer ${token}`
+      }
+    });
+  
+    return response;
+  }
+
 
 }

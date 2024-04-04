@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, Appointment, Prescription, Report, Visit } from '../Models/app.model';
+import { APIResponse, Appointment, Bill, Prescription, Report, Visit } from '../Models/app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -150,4 +150,28 @@ getDocIncomeById(id:number,token:any):Observable<APIResponse<Visit>> {
   });
   return response;
 }
+
+postBill(app:Bill,token:any):Observable<APIResponse<Bill>> {
+  let response:Observable<APIResponse<Bill>>;
+  response = this.http.post<APIResponse<Bill>>(`${this.url}api/Doctor/PostBill`, app, {
+    headers: {
+      'Content-Type':'application/json',
+      'AUTHORIZATION':`Bearer ${token}`
+    }
+  });
+  return response;
+  }
+
+  getBills(token:any):Observable<APIResponse<Bill>>{
+    let response:Observable<APIResponse<Bill>>;
+    //from here we are calling the API
+    response=this.http.get<APIResponse<Bill>>(`${this.url}api/Doctor/GetBills`,{
+      headers:{
+        'AUTHORIZATION':`Bearer ${token}`
+      }
+    });
+  
+    return response;
+  }
+
 }

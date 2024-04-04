@@ -1,0 +1,47 @@
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">Reports</h1>
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addreport">Add report</button>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+
+    @if (reports.length === 0)
+    {
+      <h3 class="m-2">No Data To Show</h3>
+    }
+
+    @for (report of reports; track $index)
+    {
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{"report ID : "+ report.reportID }}</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td><b>Patient ID:</b></td>
+                  <td>{{ report.patientID }}</td>
+                </tr>
+                <tr>
+                  <td><b>Doctor:</b></td>
+                  <td>{{ getDoctorName(report.dId) }}</td>
+                </tr>
+                <tr>
+                  <td><b>Diagnosis</b></td>
+                  <td>{{ report.diagnosis }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-danger" (click)="onReportDelete(report)">Delete</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

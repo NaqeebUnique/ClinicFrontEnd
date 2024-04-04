@@ -1,0 +1,29 @@
+
+
+
+<h2>Add Appointment</h2>
+<div class="container">
+  <div class="form-group">
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Patient</label>
+        <select class="form-control" [(ngModel)]="Report.patientID">
+          @for (ptn of this.patients; track $index) {
+            <option value="{{ptn.patientID}}">{{ptn.patientID + " : " + ptn.firstName + " " + ptn.lastName}}</option>
+          }
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Diagnosis</label>
+        <input type="text" class="form-control" [(ngModel)]="Report.diagnosis" style="height: 100px">
+      </div>
+    </div>
+    <br>
+    <div class="btn-group-lg">
+      <button class="btn btn-warning" style="font-weight: 600;" (click)="clear()">Clear All</button>
+      <button class="btn btn-success" style="font-weight: 600;" (click)="save()">Save</button>
+    </div>
+    <br/>
+  </div>
+</div>

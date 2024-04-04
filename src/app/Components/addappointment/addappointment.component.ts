@@ -28,7 +28,7 @@ export class AddappointmentComponent implements OnInit{
   doctors: Array<Doctor>;
   patients: Array<Patient>;
   message:string;
-
+  maxDate: Date;
 
   constructor(private serv:AdminHttpService, private router: Router){
     this.appointment = new Appointment(0, 0, new Date(),'', 0);
@@ -38,6 +38,8 @@ export class AddappointmentComponent implements OnInit{
     this.doctors = new Array<Doctor>();
     this.patients = new Array<Patient>();
     this.message = '';
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() + 30);
   }
   ngOnInit(): void {
     this.serv.getPatients("").subscribe({
@@ -59,37 +61,42 @@ export class AddappointmentComponent implements OnInit{
         this.message = `Error: ${error}`;
       }
     })
+
+    this.serv.getAppointment("").subscribe({
+      next: (response) => {
+        this.appointments = response.records;
+        this.message = response.Message;
+      },
+      error: (error) => {
+        this.message = `Error: ${error}`;
+      }
+    })
 }
 
   clear():void {
     this.appointment = new Appointment(0, 0, new Date(),'', 0);
   }
-  save():void
-  {
+  save(): void {
     if (
       this.appointment.date &&
       this.appointment.doctorId &&
-      this.appointment.patientId&&
+      this.appointment.patientId &&
       this.appointment.timeSlot
-    )
-    {
-      this.serv.postAppointment(this.appointment, "").subscribe({
-        next: (response) => {
+    ) {
+        this.serv.postAppointment(this.appointment,"").subscribe({
+          next: (response) => {
+            this.message = response.Message;
+          },
+          error: (error) => {
+            this.message = `Error: ${error}`;
+          }
+        });
+        this.router.navigate(['/appointments']);
+        this.clear();
 
-          console.log(this.appointment);
-          this.message = response.Message;
-        },
-        error: (error) => {
-          this.message = `Error: ${error}`;
-        }
-      })
-      this.router.navigate(['/appointments'], { state: { newAppointment: this.appointment } });
-      this.clear();
-    }
-
-    else
-    {
+    } else {
       alert('Please fill in all fields.');
     }
   }
+
 }

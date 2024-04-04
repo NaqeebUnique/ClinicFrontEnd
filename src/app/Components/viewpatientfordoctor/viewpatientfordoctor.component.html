@@ -1,0 +1,42 @@
+<h1>My Patients</h1>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+<br><br>
+
+
+@if (data.length == 0) {
+  <h3 class="m-2">No Data To Show</h3>
+} 
+
+@else {
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        @for (col of columns; track $index) 
+        {
+          <th>{{ col }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (patient of data; track $index) 
+      {
+        <tr>
+          <td>{{ patient.patientID }}</td>
+          <td>{{ patient.firstName }}</td>
+          <td>{{ patient.lastName }}</td>
+          <td>{{ patient.dob | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ patient.contact }}</td>
+          <td>{{ patient.email }}</td>
+          <td>{{ patient.address }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.bloodType }}</td>
+          <td>{{ patient.emergencyContact }}</td>
+          <td>{{ patient.insurance }}</td>
+
+        </tr>
+      }
+    </tbody>
+  </table>
+}
