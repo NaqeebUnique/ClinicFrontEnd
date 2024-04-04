@@ -23,7 +23,7 @@ export class ViewdoctorsComponent {
   newDoctor: Doctor | undefined;
 
   constructor(){
-    this.doctor = new Doctor(0,'','','', '','');
+    this.doctor = new Doctor(0,'','','', '',0);
     //this.logic = new DoctorLogic();
     //this.doctors = this.logic.getDoctors();
     this.doctors=new Array<Doctor>;

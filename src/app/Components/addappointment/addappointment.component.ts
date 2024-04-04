@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Appointment } from '../../Models/app.model'; 
+import { Appointment } from '../../Models/app.model';
 import { TimeSlots } from '../../Models/app.constants';
 import { Router, RouterModule } from '@angular/router';
 import { ViewdoctorsComponent } from '../viewdoctors/viewdoctors.component';
@@ -64,20 +64,30 @@ export class AddappointmentComponent implements OnInit{
   clear():void {
     this.appointment = new Appointment(0, 0, new Date(),'', 0);
   }
-  save():void 
+  save():void
   {
     if (
       this.appointment.date &&
-      this.appointment.DoctorId &&
-      this.appointment.PatientId&&
+      this.appointment.doctorId &&
+      this.appointment.patientId&&
       this.appointment.timeSlot
-    ) 
+    )
     {
+      this.serv.postAppointment(this.appointment, "").subscribe({
+        next: (response) => {
+
+          console.log(this.appointment);
+          this.message = response.Message;
+        },
+        error: (error) => {
+          this.message = `Error: ${error}`;
+        }
+      })
       this.router.navigate(['/appointments'], { state: { newAppointment: this.appointment } });
       this.clear();
-    } 
-    
-    else 
+    }
+
+    else
     {
       alert('Please fill in all fields.');
     }

@@ -2,7 +2,7 @@
 
 <button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addappointment">Add Appointment</button>
 
-
+<br>
 <br>
 
 <div class="container">
@@ -18,18 +18,18 @@
       <div class="col-md-4 mb-4">
         <div class="card">
           <div class="card-header">
-            <h2 class="card-title">{{ appointment.AppoinmentId }}</h2>
+            <h2 class="card-title">{{"Appointment ID : "+ appointment.appoinmentId }}</h2>
           </div>
           <div class="card-body">
             <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td><b>Patient ID:</b></td>
-                  <td>{{ appointment.PatientId }}</td>
+                  <td>{{ appointment.patientId }}</td>
                 </tr>
                 <tr>
                   <td><b>Date:</b></td>
-                  <td>{{ appointment.date }}</td>
+                  <td>{{ appointment.date | date: 'yyyy-MM-dd' }}</td>
                 </tr>
                 <tr>
                   <td><b>Time Slot:</b></td>
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                   <td><b>Doctor ID:</b></td>
-                  <td>{{ appointment.DoctorId }}</td>
+                  <td>{{ appointment.doctorId }}</td>
                 </tr>
               </tbody>
             </table>
@@ -48,3 +48,4 @@
     }
   </div>
 </div>
+ 

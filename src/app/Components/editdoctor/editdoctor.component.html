@@ -1,0 +1,43 @@
+<h2>Edit Doctor</h2>
+
+<div class="container">
+  <div class="form-group">
+    <br>
+    <label>First Name</label>
+    <input type="text" class="form-control" value = {{this.doctor.firstName}}>
+    <br>
+    <label>Last Name</label>
+    <input type="text" class="form-control" [(ngModel)]="doctor.lastName">
+    <br>
+    <label>Email Address</label>
+    <input type="text" class="form-control" id="emailinput" [(ngModel)]="doctor.email">
+    @if (doctor.email && !doctor.email.match('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'))
+    {
+      <div class="text-danger">Invalid email address</div>
+    }
+    <br>
+    <div class="col-md-4">
+      <label>Speciality</label>
+      <select class="form-control" [(ngModel)]="doctor.speciality">
+          @for (bt of speciality; track $index) {
+            <option value="{{bt}}">{{bt}}</option>
+          }
+      </select>
+    </div>
+    <br>
+
+    <label>Salary</label>
+     <input type="number" class="form-control" [(ngModel)]="doctor.salary" name="salary">
+   @if (doctor.salary<0) {
+    <div class="text-danger">Salary cannot be negative</div>
+    }
+  </div>
+
+  <div>
+  <br>
+  <div class="btn-group-lg">
+    <button class="btn btn-warning" style="font-weight: 600;" (click)="clear()">Clear All</button>
+    <button class="btn btn-success" style="font-weight: 600;" (click)="save()">Save</button>
+  </div>
+  <br/>
+</div>

@@ -1,0 +1,42 @@
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">Prescriptions</h1>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addappointment">Add Prescription</button>
+
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+
+    @if (prescriptions.length === 0)
+    {
+      <h3 class="m-2">No Data To Show</h3>
+    }
+
+    @for (prescription of prescriptions; track $index)
+    {
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">{{"Prescription ID : "+ prescription.priId }}</h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td><b>Patient ID:</b></td>
+                  <td>{{ prescription.patientId }}</td>
+                </tr>
+                <tr>
+                  <td><b>Date:</b></td>
+                  <td>{{ prescription.medicine }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-danger" (click)="onPrescriptionDelete(prescription)">Delete</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

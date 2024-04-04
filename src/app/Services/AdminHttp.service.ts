@@ -40,7 +40,7 @@ constructor(private http:HttpClient) {
 
  postAppointment(app:Appointment,token:any):Observable<APIResponse<Appointment>> {
   let response:Observable<APIResponse<Appointment>>;
-  response = this.http.post<APIResponse<Appointment>>(`${this.url}api/Admin/PostAppointment`, app, {
+  response = this.http.post<APIResponse<Appointment>>(`${this.url}api/Admin/PostAppoinment`, app, {
     headers: {
       'Content-Type':'application/json',
       'AUTHORIZATION':`Bearer ${token}`

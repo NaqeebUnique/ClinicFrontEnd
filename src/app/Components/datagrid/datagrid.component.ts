@@ -45,9 +45,9 @@ export class DatagridComponent implements OnInit{
     this.searchPatientId = '';
     this.message="";
     this.filteredData = new Array<Patient>();
-    this.searchInput = new FormControl();
-    this.nameInput = new FormControl();
-    this.originalData = new Array<any>();
+    this.searchInput = new FormControl();//
+    this.nameInput = new FormControl();//
+    this.originalData = new Array<any>();//
 
   }
 
@@ -66,7 +66,7 @@ export class DatagridComponent implements OnInit{
 
     this.searchInput.valueChanges
       .pipe(
-        debounceTime(300), 
+        debounceTime(300),
         distinctUntilChanged()
       )
       .subscribe(searchTerm => {
@@ -75,7 +75,7 @@ export class DatagridComponent implements OnInit{
 
       this.nameInput.valueChanges
       .pipe(
-        debounceTime(300), 
+        debounceTime(300),
         distinctUntilChanged()
       )
       .subscribe(searchTerm => {
@@ -85,9 +85,9 @@ export class DatagridComponent implements OnInit{
 
   filterData(searchTerm: string) {
     if (searchTerm.trim() === '') {
-      this.filteredData = this.originalData.slice(); 
+      this.filteredData = this.originalData.slice();
     } else {
-      this.filteredData = this.originalData.filter(patient => 
+      this.filteredData = this.originalData.filter(patient =>
         patient.patientID.toString().includes(searchTerm.trim())
       );
     }
@@ -96,9 +96,9 @@ export class DatagridComponent implements OnInit{
 
   filterName(searchTerm: string) {
     if (searchTerm.trim() === '') {
-      this.filteredData = this.originalData.slice(); 
+      this.filteredData = this.originalData.slice();
     } else {
-      this.filteredData = this.originalData.filter(patient => 
+      this.filteredData = this.originalData.filter(patient =>
         patient.firstName.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
         patient.lastName.toLowerCase().includes(searchTerm.trim().toLowerCase())
       );
@@ -114,7 +114,7 @@ export class DatagridComponent implements OnInit{
 
   deleteRow(row: any) {
     this.serv.deletePatient(row.patientID, "").subscribe({
-      next: (response) => { 
+      next: (response) => {
         const index = this.data.findIndex(patient => patient.patientID === row.patientID);
         this.data.splice(index, 1);
         this.message = response.Message;
@@ -130,7 +130,7 @@ export class DatagridComponent implements OnInit{
     this.router.navigate(['/editpatient', id]);
   }
 
-  
+
 
 }
 

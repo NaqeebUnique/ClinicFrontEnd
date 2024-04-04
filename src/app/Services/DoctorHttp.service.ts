@@ -82,7 +82,7 @@ getPrescription(token:any):Observable<APIResponse<Prescription>>{
 
 getPrescriptionById(id:number,token:any):Observable<APIResponse<Prescription>> {
   let response:Observable<APIResponse<Prescription>>;
-  response = this.http.get<APIResponse<Prescription>>(`${this.url}api/Doctor/GetPre/${id}`,{
+  response = this.http.get<APIResponse<Prescription>>(`${this.url}api/Doctor/DeletePre/${id}`,{
     headers:{
       'AUTHORIZATION':`Bearer ${token}`
     }
@@ -113,7 +113,7 @@ return response;
 
 deletePrescription(id:number,token:any):Observable<APIResponse<Prescription>> {
 let response:Observable<APIResponse<Prescription>>;
-response = this.http.delete<APIResponse<Prescription>>(`${this.url}aapi/Doctor/DeletePre/${id}`,{
+response = this.http.delete<APIResponse<Prescription>>(`${this.url}api/Doctor/DeletePre/${id}`,{
   headers:{
     'AUTHORIZATION':`Bearer ${token}`
   }

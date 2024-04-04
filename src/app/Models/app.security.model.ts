@@ -34,7 +34,7 @@ export class SecurityResponse{
   constructor(
     public message:string,
     public token:string,
-    public isLoggedIn:boolean,
+    public isLoggedIn:string,
     public roles:string
 
   ){}

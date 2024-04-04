@@ -35,6 +35,7 @@ constructor(private serv:SecurityHttpService,private router: Router){
           //Store the token in 'session storage'
            sessionStorage.setItem('token',response.token);
            sessionStorage.setItem('role',response.roles);
+           sessionStorage.setItem('isLoggedIn',response.isLoggedIn);
            this.message=response.message;
       },
       error:(error)=>{

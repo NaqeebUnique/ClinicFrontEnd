@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-4">
         <label>Patient ID</label>
-        <select class="form-control" [(ngModel)]="appointment.PatientId">
+        <select class="form-control" [(ngModel)]="appointment.patientId">
           @for (pid of this.patients; track $index) {
             <option value="{{pid.patientID}}">{{pid.patientID}}</option>
           }
@@ -28,7 +28,7 @@
       </div>
       <div class="col-md-4">
         <label>Doctor</label>
-        <select class="form-control" [(ngModel)]="appointment.DoctorId">
+        <select class="form-control" [(ngModel)]="appointment.doctorId">
           @for (did of this.doctors; track $index) {
             <option value="{{did.firstName}}{{' '}}{{did.lastName}}">{{did.firstName}}{{" "}}{{did.lastName}}</option>
           }

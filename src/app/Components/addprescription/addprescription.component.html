@@ -1,0 +1,31 @@
+
+
+
+<h2>Add Prescription</h2>
+
+<div class="container">
+  <div class="form-group">
+    <br>
+    <label>Medicines</label>
+    <input type="text" class="form-control" [(ngModel)]="prescription.medicine">
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Patient ID</label>
+        <select class="form-control" [(ngModel)]="prescription.patientId">
+          @for (pid of this.patients; track $index) {
+            <option value="{{pid.patientID}}">{{pid.patientID}}</option>
+          }
+        </select>
+      </div>
+
+    </div>
+    <br>
+    <div class="btn-group-lg">
+      <button class="btn btn-warning" style="font-weight: 600;" (click)="clear()">Clear All</button>
+      <button class="btn btn-success" style="font-weight: 600;" (click)="save()">Save</button>
+    </div>
+    <br/>
+  </div>
+</div>
+
