@@ -106,7 +106,7 @@ export class AddReportComponent {
           
                 this.serv.postVisit(this.visit,"").subscribe({
                   next: (response) => {
-                    this.visit = response.record;
+                    this.visit = response.record; 
                     console.log(response.record)
                     this.message = response.Message;
                   },

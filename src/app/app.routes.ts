@@ -23,9 +23,8 @@ import { EditdoctorComponent } from './Components/editdoctor/editdoctor.componen
 import { doctorAuthGuardGuard } from './doctor-auth-guard.guard';
 
 export const routes: Routes = [
-  //{ path: '', redirectTo: '/patienthomepage', pathMatch: 'full' },
+  { path: '', redirectTo: '/patienthomepage', pathMatch: 'full' },
   { path: 'doctorhomepage', component: DoctorhomepageComponent, canActivate:[doctorAuthGuardGuard]},
-  // { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'adminhomepage', component: AdminhomepageComponent, canActivate: [adminAuthGuardGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'viewpatients', component: ViewpatientsComponent },

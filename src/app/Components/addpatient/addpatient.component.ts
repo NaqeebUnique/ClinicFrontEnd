@@ -68,6 +68,7 @@ export class AddpatientComponent{
       this.serv.postPatient(this.patient, this.token).subscribe({
         next: (response) => {
           this.patient = response.record;
+          
           this.patuser.Email = this.patient.email;  
           this.patuser.Password = "Patient@123";
           this.patuser.ConfirmPassowrd = "Patient@123";
