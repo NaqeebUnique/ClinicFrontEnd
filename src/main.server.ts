@@ -6,6 +6,6 @@ import { AddappointmentComponent } from './app/Components/addappointment/addappo
 import { AddprescriptionComponent } from './app/Components/addprescription/addprescription.component';
 import { ViewPrescriptionsComponent } from './app/Components/ViewPrescriptions/ViewPrescriptions.component';
 
-const bootstrap = () => bootstrapApplication(ViewPrescriptionsComponent, config);
+const bootstrap = () => bootstrapApplication(AppComponent, config);
 
 export default bootstrap;

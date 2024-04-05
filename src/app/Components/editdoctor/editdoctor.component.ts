@@ -25,7 +25,7 @@ export class EditdoctorComponent implements OnInit {
   constructor(private serv:AdminHttpService,private router:Router, private act:ActivatedRoute){
     this.doctor = new Doctor(0,'','','','',0);
 
-    this.speciality = Insurance;
+    this.speciality = Speciality;
     this.message="";
   }
 

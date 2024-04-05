@@ -4,6 +4,8 @@ import { Doctor } from '../../Models/app.model';
 import { BloodType, Gender, Insurance, Speciality } from '../../Models/app.constants';
 import { Router } from '@angular/router';
 import { AdminHttpService } from '../../Services/AdminHttp.service';
+import { AppUser, UserRole } from '../../Models/app.security.model';
+import { SecurityHttpService } from '../../Services/securityHttp.service';
 
 
 @Component({
@@ -23,15 +25,19 @@ export class AdddoctorComponent {
   speciality : Array<string>;
   columns:Array<string>;
   message:string;
+  docuser:AppUser;
+  docrole: UserRole;
 
 
 
-  constructor(private serv:AdminHttpService,private router: Router){
+  constructor(private serv:AdminHttpService,private router: Router, private secserv:SecurityHttpService){
     this.doctor = new Doctor(0,'','','', '',0);
     this.doctors=new Array<Doctor>;
     this.columns = Object.keys(this.doctor);
     this.speciality = Speciality;
     this.message="";
+    this.docuser = new AppUser('','','');
+    this.docrole = new UserRole('','');
   }
 
   clear():void {
@@ -52,8 +58,37 @@ export class AdddoctorComponent {
 
       this.serv.postDoctor(this.doctor, "").subscribe({
         next: (response) => {
+          
+          this.doctor = response.record;
 
-          console.log(this.doctor);
+          this.docuser.Email = this.doctor.email;  
+          this.docuser.Password = "Patient@123";
+          this.docuser.ConfirmPassowrd = "Patient@123";
+          this.secserv.registerUser(this.docuser).subscribe({
+            next: (response) => {
+              this.docuser = response.AppUser;
+              console.log("patient created")
+              alert("Patient User Created.\n Username: "+this.doctor.email+"\n Password:"+" Patient@123")
+
+              this.docrole.Email = this.doctor.email;
+              this.docrole.RoleName = 'Doctor';
+
+              this.secserv.assignRole(this.docrole).subscribe({
+                next: (response) => {
+                  response.UserRole = this.docrole;
+                  console.log("patient assigned role")
+                },
+                error: (error) => {
+                  this.message = `Error: ${error}`;
+                }
+              })
+
+            },
+            error: (error) => {
+              this.message = `Error: ${error}`;
+            }
+          })
+
           this.message = response.Message;
         },
         error: (error) => {

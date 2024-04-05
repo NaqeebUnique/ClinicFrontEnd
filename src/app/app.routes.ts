@@ -20,12 +20,17 @@ import { ReportsforpatientComponent } from './Components/reportsforpatient/repor
 import { AppointmentforpatientComponent } from './Components/appointmentforpatient/appointmentforpatient.component';
 import { adminAuthGuardGuard } from './admin-auth-guard.guard';
 import { EditdoctorComponent } from './Components/editdoctor/editdoctor.component';
+import { ViewPrescriptionsComponent } from './Components/ViewPrescriptions/ViewPrescriptions.component';
+import { AddprescriptionComponent } from './Components/addprescription/addprescription.component';
+import { PrescriptionforpatientComponent } from './Components/prescriptionforpatient/prescriptionforpatient.component';
+import { VisitsComponent } from './Components/visits/visits.component';
+import { PatienthomepageComponent } from './Components/patienthomepage/patienthomepage.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/doctorhomepage', pathMatch: 'full' },
+  { path: '', redirectTo: '/patienthomepage', pathMatch: 'full' },
   { path: 'adminhomepage', component: AdminhomepageComponent},
   { path: 'doctorhomepage', component: DoctorhomepageComponent},
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'adminhomepage', component: AdminhomepageComponent, canActivate: [adminAuthGuardGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'viewpatients', component: ViewpatientsComponent },
@@ -44,8 +49,13 @@ export const routes: Routes = [
   { path: 'billsforpatient', component: BillsforpatientComponent},
   { path: 'reportsforpatient', component: ReportsforpatientComponent},
   { path: 'appointmentforpatients', component: AppointmentforpatientComponent},
-
   { path: 'editdoctor/:id', component: EditdoctorComponent},
-  { path: 'addappointment', component: AddappointmentComponent}
+  { path: 'addappointment', component: AddappointmentComponent},
+  { path: 'viewprescriptions', component: ViewPrescriptionsComponent},
+  { path: 'addprescriptions', component: AddprescriptionComponent},
+  { path: 'prescriptionforpatient', component: PrescriptionforpatientComponent},
+  { path: 'visits', component: VisitsComponent},
+  { path: 'patienthomepage', component: PatienthomepageComponent}
+
 ];
 

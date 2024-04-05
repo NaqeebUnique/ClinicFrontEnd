@@ -1,0 +1,37 @@
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">Visits</h1>
+
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/adminhomepage">Home</button>
+<br><br>
+
+
+@if (visits.length == 0) {
+  <h3 class="m-2">No Data To Show</h3>
+} 
+
+@else {
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        @for (col of columns; track $index) 
+        {   
+          <th>{{ col }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (visit of visits; track $index) 
+      {
+        <tr>
+        <td>{{ visit.vId }}</td>
+          <td>{{ visit.pId + " : " + getPatientname(visit.pId) }}</td>
+          <td>{{ visit.doctorId + " : " + getDoctorname(visit.doctorId)}}</td>
+          <td>{{ visit.dateofVisit| date: 'dd/MM/yyyy' }}</td>
+          <td>{{ visit.reportID }}</td>
+          <td>{{ visit.billId }}</td>
+          
+        </tr>
+      }
+    </tbody>
+  </table>
+}

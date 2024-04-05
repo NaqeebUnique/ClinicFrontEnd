@@ -1,0 +1,19 @@
+.card{
+    height: 150px;
+    font-size: xx-large;
+    border-width: 2px;
+    text-indent: 10px;
+}
+
+.btn
+{
+    height:50px;
+    width: 125px;
+    font-size: x-large;
+}
+
+.card-title
+{
+    font-size:small;
+    margin-bottom: 20px;
+}

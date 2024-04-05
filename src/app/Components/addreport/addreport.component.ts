@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Report } from '../../Models/app.model'; 
+import { Report, Visit } from '../../Models/app.model'; 
 import { TimeSlots } from '../../Models/app.constants';
 import { Router, RouterModule } from '@angular/router';
 import { ViewdoctorsComponent } from '../viewdoctors/viewdoctors.component';
@@ -32,6 +32,7 @@ export class AddReportComponent {
   doctorid:number;
   bill: Bill;
   patient: Patient;
+  visit: Visit;
 
 
   constructor(private serv:DoctorHttpService, private router: Router, private serv1:AdminHttpService){
@@ -45,6 +46,7 @@ export class AddReportComponent {
     this.doctorid = 1;
     this.bill = new Bill(0,0,0,0,0, new Date())
     this.patient = new Patient(0,'','', new Date(), '', '', '', '', '', '', '')
+    this.visit = new Visit(0, 0, new Date(), 0,0, 0 );
 
   }
   ngOnInit(): void {
@@ -89,17 +91,29 @@ export class AddReportComponent {
         next: (response) => {
           this.message = response.Message;
 
-          console.log("response: "+response.record);
-          console.log("insurance: "+response.record.insurance);
-
-          console.log(response.record.insurance.toLowerCase() === 'individual');
-
           if (response.record.insurance.toLowerCase() === 'individual') {
 
             this.bill.insuranceCoverage = this.bill.consultingCharge * 0.05;
             this.bill.totalCharge = this.bill.consultingCharge - this.bill.insuranceCoverage;
             this.serv1.postBill(this.bill, "").subscribe({
               next: (response) => {
+                this.bill = response.record;
+                this.visit.pId = this.Report.patientID;
+                this.visit.doctorId = this.Report.dId;
+                this.visit.dateofVisit = new Date();
+                this.visit.billId = this.bill.billID;
+                this.visit.reportID = this.Report.reportID;
+          
+                this.serv.postVisit(this.visit,"").subscribe({
+                  next: (response) => {
+                    this.visit = response.record;
+                    console.log(response.record)
+                    this.message = response.Message;
+                  },
+                  error: (error) => {
+                    this.message = `Error: ${error}`;
+                  }
+                })
                 this.message = response.Message;
               },
               error: (error) => {
@@ -113,6 +127,23 @@ export class AddReportComponent {
             this.bill.totalCharge = this.bill.consultingCharge - this.bill.insuranceCoverage;
             this.serv1.postBill(this.bill, "").subscribe({
               next: (response) => {
+                this.bill = response.record;
+                this.visit.pId = this.Report.patientID;
+                this.visit.doctorId = this.Report.dId;
+                this.visit.dateofVisit = new Date();
+                this.visit.billId = this.bill.billID;
+                this.visit.reportID = this.Report.reportID;
+          
+                this.serv.postVisit(this.visit,"").subscribe({
+                  next: (response) => {
+                    this.visit = response.record;
+                    console.log(response.record)
+                    this.message = response.Message;
+                  },
+                  error: (error) => {
+                    this.message = `Error: ${error}`;
+                  }
+                })
                 this.message = response.Message;
               },
               error: (error) => {
@@ -125,6 +156,25 @@ export class AddReportComponent {
             this.bill.totalCharge = this.bill.consultingCharge - this.bill.insuranceCoverage;
             this.serv1.postBill(this.bill, "").subscribe({
               next: (response) => {
+
+                console.log("bill posted: "+response.record);
+                this.bill = response.record; 
+                this.visit.pId = this.Report.patientID;
+                this.visit.doctorId = this.Report.dId;
+                this.visit.dateofVisit = new Date();
+                this.visit.billId = this.bill.billID;
+                this.visit.reportID = this.Report.reportID;
+          
+                this.serv.postVisit(this.visit,"").subscribe({
+                  next: (response) => {
+                    this.visit = response.record;
+                    console.log(response.record)
+                    this.message = response.Message;
+                  },
+                  error: (error) => {
+                    this.message = `Error: ${error}`;
+                  }
+                })
                 this.message = response.Message;
               },
               error: (error) => {

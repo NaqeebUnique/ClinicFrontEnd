@@ -1,5 +1,8 @@
-<h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">My Appointments</h1>
-<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
+
+<button class="btn btn-primary" style="margin-left: 120px; margin-top: 25px;" routerLink="/patienthomepage">Home</button>
+<br><br><br>
+
+<h1 style="font-size: xx-large; font-weight: 600; margin-left: 120px;">My Appointments</h1>
 
 <br>
 <br>
@@ -31,8 +34,8 @@
                   <td>{{ appointment.timeSlot }}</td>
                 </tr>
                 <tr>
-                    <td><b>Doctor ID:</b></td>
-                    <td>{{ appointment.doctorId + " : " + getDoctorName(appointment.doctorId)}}</td>
+                    <td><b>Doctor:</b></td>
+                    <td>{{getDoctorName(appointment.doctorId)}}</td>
                   </tr>
               </tbody>
             </table>

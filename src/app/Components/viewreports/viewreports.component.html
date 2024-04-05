@@ -25,12 +25,8 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td><b>Patient ID:</b></td>
-                  <td>{{ report.patientID }}</td>
-                </tr>
-                <tr>
-                  <td><b>Doctor:</b></td>
-                  <td>{{ getDoctorName(report.dId) }}</td>
+                  <td><b>Patient:</b></td>
+                  <td>{{ report.patientID + " : " + getPatientname(report.patientID) }}</td>
                 </tr>
                 <tr>
                   <td><b>Diagnosis</b></td>

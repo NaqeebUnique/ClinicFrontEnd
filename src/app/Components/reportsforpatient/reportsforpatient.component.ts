@@ -24,6 +24,7 @@ export class ReportsforpatientComponent {
   newReport: Report | undefined;
   doctors: Array<Doctor>;
   patientid:number;
+  date: Date;
 
   constructor(private serv:DoctorHttpService, private router: Router, private serv1:AdminHttpService){
     this.report = new Report(0,0,0,'');
@@ -32,6 +33,7 @@ export class ReportsforpatientComponent {
     this.columns = Object.keys(this.report);
     this.doctors = new Array<Doctor>();
     this.patientid = 1;
+    this.date = new Date();
   }
   ngOnInit(): void {
     this.serv.getReport("").subscribe({

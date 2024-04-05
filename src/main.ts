@@ -6,5 +6,5 @@ import { AddappointmentComponent } from './app/Components/addappointment/addappo
 import { AddprescriptionComponent } from './app/Components/addprescription/addprescription.component';
 import { ViewPrescriptionsComponent } from './app/Components/ViewPrescriptions/ViewPrescriptions.component';
 
-bootstrapApplication(ViewPrescriptionsComponent, appConfig)
+bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));

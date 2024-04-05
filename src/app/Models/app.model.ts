@@ -56,7 +56,8 @@ export class Prescription{
   constructor(
     public priId:number,
     public medicine:string,
-    public patientId:number
+    public patientId:number,
+    public docId:number
   ){}
 }
 
@@ -73,14 +74,12 @@ export class Report{
 export class Visit{
   [x:string]:any;
   constructor(
-    public VId:number,
-    public PId:number,
-    public DateofVisit:Date,
-    public DoctorId:number,
-    public TimeSlot:string,
-    public BillId:number,
-    public PriId:number,
-    public ReportID:number
+    public vId:number,
+    public pId:number,
+    public dateofVisit:Date,
+    public doctorId:number,
+    public billId:number,
+    public reportID:number
 
   ){}
 }

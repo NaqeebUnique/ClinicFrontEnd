@@ -28,13 +28,14 @@ export class AddprescriptionComponent implements OnInit {
 
 
   constructor(private serv:DoctorHttpService, private router: Router,private serv1:AdminHttpService){
-    this.prescription = new Prescription(0,'',0);
+    this.prescription = new Prescription(0,'',0,0);
     this.columns = Object.keys(this.prescription);
     this.timeslots = TimeSlots;
     this.prescriptions = new Array<Prescription>();
     this.doctors = new Array<Doctor>();
     this.patients = new Array<Patient>();
     this.message = '';
+    this.prescription.docId = 1;
   }
   ngOnInit(): void {
     this.serv1.getPatients("").subscribe({
@@ -50,7 +51,7 @@ export class AddprescriptionComponent implements OnInit {
 }
 
   clear():void {
-    this.prescription = new Prescription(0,'',0);
+    this.prescription = new Prescription(0,'',0,0);
   }
   save():void
   {
@@ -70,7 +71,7 @@ export class AddprescriptionComponent implements OnInit {
           this.message = `Error: ${error}`;
         }
       })
-      this.router.navigate(['/prescriptions'], { state: { newAppointment: this.prescription } });
+      this.router.navigate(['/viewprescriptions'], { state: { newAppointment: this.prescription } });
       this.clear();
     }
 

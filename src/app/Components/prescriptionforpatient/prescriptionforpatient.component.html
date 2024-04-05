@@ -1,9 +1,6 @@
 <h1 style="font-size: xx-large; font-weight: 600; margin-left: 10px; margin-top:10px">Prescriptions</h1>
 
-<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/doctorhomepage">Home</button>
-
-
-<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/addprescriptions">Add Prescription</button>
+<button class="btn btn-primary" style="margin-left: 20px;"routerLink="/patienthomepage">Home</button>
 
 <br>
 <br>
@@ -27,20 +24,19 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <td><b>Date:</b></td>
-                  <td>{{date | date: 'dd-MM-yyyy'}}</td>
-                </tr>
-                <tr>
-                  <td><b>Patient ID:</b></td>
-                  <td>{{ prescription.patientId }}</td>
-                </tr>
+                    <td><b>Date:</b></td>
+                    <td>{{date | date: 'dd-MM-yyyy'}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Doctor:</b></td>
+                    <td>{{prescription.docId}}</td>
+                  </tr>
                 <tr>
                   <td><b>Medicines:</b></td>
                   <td>{{ prescription.medicine }}</td>
                 </tr>
               </tbody>
             </table>
-            <button class="btn btn-danger" (click)="onPrescriptionDelete(prescription)">Delete</button>
           </div>
         </div>
       </div>

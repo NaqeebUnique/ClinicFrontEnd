@@ -174,4 +174,15 @@ postBill(app:Bill,token:any):Observable<APIResponse<Bill>> {
     return response;
   }
 
+  postVisit(app:Visit,token:any):Observable<APIResponse<Visit>> {
+    let response:Observable<APIResponse<Visit>>;
+    response = this.http.post<APIResponse<Visit>>(`${this.url}api/Doctor/PostVisit`, app, {
+      headers: {
+        'Content-Type':'application/json',
+        'AUTHORIZATION':`Bearer ${token}`
+      }
+    });
+    return response;
+    }
+
 }

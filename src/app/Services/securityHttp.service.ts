@@ -26,9 +26,9 @@ constructor(private http:HttpClient) {
     }
   });
   return response;
+
  }
 
- //To assign role to user
  assignRole(user:UserRole):Observable<SecurityResponse>{
   let response:Observable<SecurityResponse>;
 

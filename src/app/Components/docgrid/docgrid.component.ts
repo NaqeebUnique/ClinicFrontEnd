@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 
 export class DocgridComponent implements OnInit {
 
-  @Input() columns: Array<any>;
+  columns: Array<any>;
   @Input() data:Array<Doctor>;
   CanDelete: boolean;
   CanEdit: boolean;
@@ -36,7 +36,7 @@ export class DocgridComponent implements OnInit {
   role = sessionStorage.getItem("role");
 
   constructor(private serv:AdminHttpService, private router: Router) {
-    this.columns=new Array<any>();
+    this.columns=["Doctor ID", "First Name","Last Name", "Speciality", "Email", "Salary"];
     this.data=Array<Doctor>();
     this.CanDelete = false;
     this.CanEdit = false;
@@ -65,14 +65,6 @@ export class DocgridComponent implements OnInit {
       }
     })
 
-    this.searchInput.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      )
-      .subscribe(searchTerm => {
-        this.filterData(searchTerm);
-      });
 
       this.nameInput.valueChanges
       .pipe(
@@ -84,25 +76,13 @@ export class DocgridComponent implements OnInit {
       });
   }
 
-  filterData(searchTerm: string) {
-    if (searchTerm.trim() === '') {
-      this.filteredData = this.originalData.slice();
-    } else {
-      this.filteredData = this.originalData.filter(doctor =>
-        // patient.patientID.toString().includes(searchTerm.trim())
-        doctor.doctorId.toString().includes(searchTerm.trim())
-      );
-    }
-    this.data = this.filteredData;
-  }
-
   filterName(searchTerm: string) {
     if (searchTerm.trim() === '') {
       this.filteredData = this.originalData.slice();
     } else {
-      this.filteredData = this.originalData.filter(patient =>
-        patient.firstName.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
-        patient.lastName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+      this.filteredData = this.originalData.filter(doctor =>
+        doctor.firstName.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
+        doctor.lastName.toLowerCase().includes(searchTerm.trim().toLowerCase())
       );
     }
     this.data = this.filteredData;

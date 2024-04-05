@@ -35,7 +35,11 @@ export class SecurityResponse{
     public message:string,
     public token:string,
     public isLoggedIn:string,
-    public roles:string
-
+    public roles:string,
+    public record:string,
+    public AppUser: AppUser,
+    public UserRole: UserRole,
+    public LoginUser: LoginUser,
+    public RoleInfo: RoleInfo
   ){}
 }

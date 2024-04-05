@@ -6,6 +6,8 @@ import { BloodType, Gender, Insurance } from '../../Models/app.constants';
 import { Router } from '@angular/router';
 import { AdminHttpService } from '../../Services/AdminHttp.service';
 import { Session } from 'inspector';
+import { SecurityHttpService } from '../../Services/securityHttp.service';
+import { AppUser, UserRole } from '../../Models/app.security.model';
 
 
 @Component({
@@ -28,9 +30,11 @@ export class AddpatientComponent{
   columns:Array<string>;
   message:string;
   token:any;
+  patuser:AppUser;
+  patrole:UserRole;
 
 
-  constructor(private serv:AdminHttpService,private router: Router){
+  constructor(private serv:AdminHttpService,private router: Router, private secserv:SecurityHttpService){
     this.patient = new Patient(0,'','',new Date(), '','','','','','','',);
     this.patients = new Array<Patient>();   
     this.columns = new Array<string>();
@@ -40,6 +44,8 @@ export class AddpatientComponent{
     this.gender = Gender;
     this.message="";
     this.token=sessionStorage.getItem("token");
+    this.patuser = new AppUser('','','');
+    this.patrole = new UserRole('','');
   }
 
   clear():void {
@@ -61,8 +67,35 @@ export class AddpatientComponent{
     {
       this.serv.postPatient(this.patient, this.token).subscribe({
         next: (response) => {
+          this.patient = response.record;
+          this.patuser.Email = this.patient.email;  
+          this.patuser.Password = "Patient@123";
+          this.patuser.ConfirmPassowrd = "Patient@123";
+          this.secserv.registerUser(this.patuser).subscribe({
+            next: (response) => {
+              this.patuser = response.AppUser;
+              console.log("patient created")
+              alert("Patient User Created.\n Username: "+this.patient.email+"\n Password:"+" Patient@123")
 
-          console.log(this.patient);
+              this.patrole.Email = this.patient.email;
+              this.patrole.RoleName = 'Patient';
+
+              this.secserv.assignRole(this.patrole).subscribe({
+                next: (response) => {
+                  response.UserRole = this.patrole;
+                  console.log("patient assigned role")
+                },
+                error: (error) => {
+                  this.message = `Error: ${error}`;
+                }
+              })
+
+            },
+            error: (error) => {
+              this.message = `Error: ${error}`;
+            }
+          })
+
           this.message = response.Message;
         },
         error: (error) => {
