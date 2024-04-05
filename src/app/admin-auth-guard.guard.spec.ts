@@ -1,7 +1,7 @@
+import { adminAuthGuardGuard } from './admin-auth-guard.guard';
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { adminAuthGuardGuard } from './admin-auth-guard.guard';
 
 describe('adminAuthGuardGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>

@@ -4,7 +4,7 @@ import { CanActivateFn } from '@angular/router';
 import { doctorAuthGuardGuard } from './doctor-auth-guard.guard';
 
 describe('doctorAuthGuardGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) =>
+  const executeGuard: CanActivateFn = () =>
       TestBed.runInInjectionContext(() => doctorAuthGuardGuard());
 
   beforeEach(() => {

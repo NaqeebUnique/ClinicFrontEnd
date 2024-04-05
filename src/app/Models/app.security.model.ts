@@ -35,7 +35,8 @@ export class SecurityResponse{
     public message:string,
     public token:string,
     public isLoggedIn:string,
-    public roles:string
+    public roles:string,
+    public userId:string
 
   ){}
 }
