@@ -5,6 +5,7 @@ import { AddpatientComponent } from './app/Components/addpatient/addpatient.comp
 import { AddappointmentComponent } from './app/Components/addappointment/addappointment.component';
 import { AddprescriptionComponent } from './app/Components/addprescription/addprescription.component';
 import { ViewPrescriptionsComponent } from './app/Components/ViewPrescriptions/ViewPrescriptions.component';
+import { LoginComponent } from './app/Components/login/login.component';
 
 const bootstrap = () => bootstrapApplication(AppComponent, config);
 

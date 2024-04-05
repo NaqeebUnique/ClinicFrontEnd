@@ -64,4 +64,12 @@ response = this.http.post<SecurityResponse>(`${this.url}api/Security/newrole`,
      });
 return response;
 }
+
+logout(): Observable<SecurityResponse> {
+  return this.http.post<SecurityResponse>(`${this.url}api/Security/logout`, {}, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
 }

@@ -40,6 +40,8 @@ export class SecurityResponse{
     public AppUser: AppUser,
     public UserRole: UserRole,
     public LoginUser: LoginUser,
-    public RoleInfo: RoleInfo
+    public RoleInfo: RoleInfo,
+    public userId:string
+
   ){}
 }

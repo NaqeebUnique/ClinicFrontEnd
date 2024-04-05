@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ViewreportsComponent } from '../viewreports/viewreports.component';
 
 
@@ -11,5 +11,12 @@ import { ViewreportsComponent } from '../viewreports/viewreports.component';
   styleUrl: './doctorhomepage.component.css'
 })
 export class DoctorhomepageComponent {
+
+  constructor(private router: Router){}
+
+  logout():void{
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
 }

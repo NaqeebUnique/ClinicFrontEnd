@@ -14,4 +14,13 @@ import { AppointmentsComponent } from '../appointments/appointments.component';
 })
 export class AdminhomepageComponent {
 
+constructor(private router: Router){}
+
+  logout():void{
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+
+  }
+
+
 }

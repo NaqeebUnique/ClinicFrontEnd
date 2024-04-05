@@ -36,12 +36,20 @@ constructor(private serv:SecurityHttpService,private router: Router){
            sessionStorage.setItem('token',response.token);
            sessionStorage.setItem('role',response.roles);
            sessionStorage.setItem('isLoggedIn',response.isLoggedIn);
+           sessionStorage.setItem('userId',response.userId)
            this.message=response.message;
       },
       error:(error)=>{
         this.message=`Error: ${error}`;
       }
     })
-    this.router.navigate(['/adminhomepage']);
+
+    if(sessionStorage.getItem("role")=="Administrator"){
+      this.router.navigate(['/adminhomepage'])
+    }
+
+      if(sessionStorage.getItem("role")=="Doctor"){
+      this.router.navigate(['/doctorhomepage'])
+      }
   }
 }
